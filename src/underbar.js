@@ -178,27 +178,14 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    //var sum = collection[0];
-    // for (var i = 1; i < collection.length; i++) {
-    //   sum += collection[i];
-    // }
-    // return sum;
-    if (!accumulator) {
-      var isAcc = false;
+    var i = 0;
+    if (arguments[2] === undefined){
+      i = 1;
+      var accumulator = collection[0];
     }
-
-    _.each(collection, function(ele) {
-      if (!isAcc) {
-        accumulator = collection[0];
-        return accumulator;
-        isAcc = true;
-      }
-      if (iterator) {
-        ele = iterator(ele);
-      }
-      return accumulator + ele;
-    });
-
+    for (i; i < collection.length; i++) {
+      accumulator = iterator(accumulator, collection[i]);
+    }
     return accumulator;
   };
 
